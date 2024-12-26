@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OutFYI Video Catalogue</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f8f8f8;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    #outfyi-heading {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      color: black;
+      font-weight: bold;
+      z-index: 1000;
+      display: none;
+    }
+
+    .content {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    h1 {
+      font-size: 70px;
+      color: black;
+      margin-bottom: 20px;
+    }
+    h2 {
+      font-size: 40px;
+      color: black;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      color: black;
+      margin-bottom: 30px;
+    }
+
+    .proceed-btn {
+      margin-top: 50px;
+      background-color: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      font-size: 16px;
+      padding: 8px 16px;
+    }
+
+    .proceed-btn:hover {
+      background-color: white;
+      color: black;
+    }
+
+    #password-page {
+      display: none;
+      text-align: center;
+    }
+
+    .password-input {
+      padding: 8px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 200px;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    #loading-page {
+      display: none;
+      text-align: center;
+    }
+
+    #loading-page h1 {
+      font-size: 20px;
+      color: black;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    #video-container {
+      display: none;
+      position: relative;
+      width: 80%;
+      height: 90%;
+      overflow: hidden;
+      flex-wrap: nowrap;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .video {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .video.active {
+      opacity: 1;
+    }
+
+    .too-much-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 80px;
+      background-color: rgba(255, 255, 255, 0.6);
+      color: rgb(0, 0, 0);
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 5px;
+      z-index: 1;
+    }
+
+    .too-much-btn:hover {
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="outfyi-heading">OUTFYI</div>
+
+  <div class="content" id="outfyipage">
+    <h1>OUTFYI</h1>
+    <p>The models you are about to witness are professionals.</p>
+    <button class="proceed-btn" id="proceed-btn">Proceed</button>
+  </div>
+
+  <div id="password-page">
+    <h2>Enter Password</h2>
+    <input type="password" id="password-input" class="password-input" placeholder="Enter password">
+    <button class="proceed-btn" onclick="validatePassword()">Submit</button>
+    <p id="error-message" class="error-message">Incorrect password. Please try again.</p>
+  </div>
+
+  <!-- Loading Page -->
+  <div id="loading-page">
+    <h1>Hotness Loading...</h1>
+  </div>
+  <div id="video-container">
+    <!-- Video 1 to 22 -->
+    <div class="video" id="video1">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_030702.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="video" id="video2">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_030522.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="video" id="video3">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_031009.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="video" id="video4">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_031129.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="video" id="video5">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_031351.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="video" id="video6">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_031456.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="video" id="video7">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_031627.mp4" type="video/mp4">
+      </video>
+      <button class="too-much-btn">Too Much</button>
+    </div>
+    <div class="video" id="video8">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_031817.mp4" type="video/mp4">
+      </video>
+      <button class="too-much-btn">Too Much</button>
+    </div>
+    <div class="video" id="video9">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_031930.mp4" type="video/mp4">
+      </video>
+      <button class="too-much-btn">Too Much</button>
+    </div>
+    <div class="video" id="video10">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_032130.mp4" type="video/mp4">
+      </video>
+      <button class="too-much-btn">Too Much</button>
+    </div>
+    <div class="video" id="video11">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_032229.mp4" type="video/mp4">
+      </video>
+      <button class="too-much-btn">Too Much</button>
+    </div>
+    <div class="video" id="video12">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_032348.mp4" type="video/mp4">
+      </video>
+      <button class="too-much-btn">Too Much</button>
+    </div>
+    <div class="video" id="video13">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_032522.mp4" type="video/mp4">
+      </video>
+      <button class="too-much-btn">Too Much</button>
+    </div>
+    <div class="video" id="video14">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_032630.mp4" type="video/mp4">
+      </video>
+      <button class="too-much-btn">Too Much</button>
+    </div>
+    <div class="video" id="video15">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_032739.mp4" type="video/mp4">
+      </video>
+      <button class="too-much-btn">Too Much</button>
+    </div>
+    <div class="video" id="video16">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_032829.mp4" type="video/mp4">
+      </video>
+      <button class="too-much-btn">Too Much</button>
+    </div>
+    <div class="video" id="video17">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_032921.mp4" type="video/mp4">
+      </video>
+      <button class="too-much-btn">Too Much</button>
+    </div>
+    <div class="video" id="video18">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_033022.mp4" type="video/mp4">
+      </video>
+      <button class="too-much-btn">Too Much</button>
+    </div>
+    <div class="video" id="video19">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_033124.mp4" type="video/mp4">
+      </video>
+      <button class="too-much-btn">Too Much</button>
+    </div>
+    <div class="video" id="video20">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_033221.mp4" type="video/mp4">
+      </video>
+      <button class="too-much-btn">Too Much</button>
+    </div>
+    <div class="video" id="video21">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_033327.mp4" type="video/mp4">
+      </video>
+      <button class="too-much-btn">Too Much</button>
+    </div>
+    <div class="video" id="video22">
+      <video preload="none" muted loop>
+        <source src="videos/VN20241226_033531.mp4" type="video/mp4">
+      </video>
+      <button class="too-much-btn">Too Much</button>
+    </div>
+  </div>
+
+  <script>
+    const videos = document.querySelectorAll('.video');
+    const videoContainer = document.getElementById('video-container');
+    const loadingPage = document.getElementById('loading-page');
+    const correctPassword = "sonyfx3";
+    let currentVideoIndex = 0;
+
+    function updateCarousel() {
+      videos.forEach((video, index) => {
+        const videoElement = video.querySelector('video');
+        if (index === currentVideoIndex) {
+          video.classList.add('active');
+          videoElement.play();
+        } else {
+          video.classList.remove('active');
+          videoElement.pause();
+        }
+      });
+    }
+
+    function changeVideo(direction) {
+      if (direction === 'next') {
+        currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+      } else if (direction === 'prev') {
+        currentVideoIndex = (currentVideoIndex - 1 + videos.length) % videos.length;
+      }
+      updateCarousel();
+    }
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'ArrowRight') {
+        changeVideo('next');
+      } else if (event.key === 'ArrowLeft') {
+        changeVideo('prev');
+      }
+    });
+
+    function showPasswordPage() {
+      document.getElementById('outfyipage').style.display = 'none';
+      document.getElementById('password-page').style.display = 'block';
+    }
+
+    function validatePassword() {
+      const passwordInput = document.getElementById('password-input').value;
+      if (passwordInput === correctPassword) {
+        document.getElementById('password-page').style.display = 'none';
+        loadingPage.style.display = 'block';
+        setTimeout(function() {
+          loadingPage.style.display = 'none';
+          videoContainer.style.display = 'flex';
+          document.getElementById('outfyi-heading').style.display = 'block';
+          updateCarousel();
+        }, 4000);
+      } else {
+        document.getElementById('error-message').style.display = 'block';
+      }
+    }
+
+    document.getElementById('proceed-btn').addEventListener('click', showPasswordPage);
+    
+    // Allow Enter key to trigger the submit button action
+    document.getElementById('password-input').addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        validatePassword();
+      }
+    });
+    // Functionality for the "Too Much" button
+const tooMuchButtons = document.querySelectorAll('.too-much-btn');
+tooMuchButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    window.location.href = 'ice_pack_page.html'; // Redirect to ice_pack_page.html
+  });
+});
+
+  </script>
+</body>
+</html>
